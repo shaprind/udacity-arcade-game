@@ -48,46 +48,39 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.update = function(){
-  if(this.ctlKey === 'left' && this.x > 0){
-    this.x = this.x - 50;
-    //if r ight key is pressed and player is not on edge of map increment x
-  } else if(this.ctlKey === 'right' && this.x != 400){
-    this.x = this.x + 50;
-    //if up key is pressed increment y
-  } else if(this.ctlKey === 'up'){
-    this.y = this.y - 50;
-    //if down key is pressed and player is not on edge of map decrement y
-  } else if (this.ctlKey === 'down' && this.y != 400){
-    this.y = this.y + 50;
+Player.prototype.handleInput = function (allowedKeys){
+  switch (allowedKeys){
+    case 'left':
+      this.x <= 10 ? this.x = 0 : this.x -= 100;
+      break;
+    case 'right':
+      this.x >= 400 ? this.x = 400 : this.x += 100;
+      break;
+    case 'up':
+      this.y <= 50 ? this.y =- 10 : this.y += 80;
+      break;
+    case 'down':
+      this.y >= 400 ? this.y = 400 : this.y += 80;
+      break;
   }
-  this.ctlKey = null;
+}
 
-  //If on water, pop a message and reset the game
-  if(this.y < 25){
-
-    player.x=200;
-    player.y=400;
+Player.prototype.update = function() {
+  if (this.y <= -10){
+    this.x = 200;
+    this.y = 400;
   }
-};
-
-Player.prototype.handleInput = function(e) {
-  this.ctlKey = e;
 };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var player = new Player (200, 400);
+let player = new Player (200, 400);
 
-var allEnemies=[];
-
-var enemyLocation = [60,140,220];
-var enemy;
-enemyPosition.forEach(function(locY){
-  enemy = new Enemy(0,locY,100+Math.floor(Math.random()*512));
-  allEnemies.push(enemy);
-});
+let enemy1 = new Enemy(60);
+let enemy2 = new Enemy(140);
+let enemy3 = new Enemy(220);
+let allEnemies = [enemy1, enemy2, enemy3];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
