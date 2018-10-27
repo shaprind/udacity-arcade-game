@@ -2,7 +2,7 @@
 
 This app  is created as part of the FEND Nanodegree.
 
-![Screenshot](AGScreenshot.png)
+![Screenshot](AGScreenshot.jpeg)
 
 #### This project focuses on
 
